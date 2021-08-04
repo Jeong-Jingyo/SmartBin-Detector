@@ -2,8 +2,7 @@ import csv
 import os
 from PIL import Image
 
-classes = ("label", "cap", "ring")
-
+classes = input("input classes(split class name by comma)\n>>").split(",")
 
 def get_class(label: list) -> int:
     for obj_class in classes:
@@ -28,8 +27,8 @@ def get_regularized_size(label: list) -> (int, int):
 
 
 csv_file_path = input("input origin index file path\n>>")
-img_source_path = input("input image source path\n>>")
-img_path = input("input where images/indexes should be in darknet")
+img_source_path = input("input image source path\n>>") + "/"
+img_path = input("input where images/indexes should be in darknet\n>>") + "/"
 with open(csv_file_path) as data:
     reader = csv.reader(data, delimiter=",")
     print(reader)
