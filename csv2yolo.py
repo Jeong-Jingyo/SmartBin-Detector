@@ -57,3 +57,5 @@ with open(csv_file_path) as data:
         # with open("./index/" + label[0].replace(".jpg", "") + ".txt", "a") as file:
         #     file.write(f"{get_class(label)} {label[3]} {label[4]} {label[5]} {label[6]}\n")
 
+with open("./obj.names", "w") as file:
+    file.write("\n".join(classes))
