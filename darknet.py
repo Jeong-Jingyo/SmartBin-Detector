@@ -7,7 +7,7 @@ Running the script requires opencv-python to be installed (`pip install opencv-p
 Directly viewing or returning bounding-boxed images requires scikit-image to be installed (`pip install scikit-image`)
 Use pip3 instead of pip on some systems to be sure to install modules for python3
 """
-
+import configparser
 from ctypes import *
 import math
 import random
@@ -170,9 +170,12 @@ if os.name == "posix":
     lib = CDLL(cwd + "/libdarknet.so", RTLD_GLOBAL)
 elif os.name == "nt":
     cwd = os.path.dirname(__file__)
-    os.add_dll_directory("C:\Program Files\\NVIDIA GPU Computing Toolkit\CUDA\\v11.2\\bin")
+    os.add_dll_directory("C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v11.2\\bin")
     os.environ['PATH'] = cwd + ';' + os.environ['PATH']
-    lib = CDLL("C:\\darknet\\darknet.dll", RTLD_GLOBAL)
+    cfg = configparser.ConfigParser()
+    with open(f"{os.path.dirname(__file__)}/detection.cfg", "r") as file:
+        cfg.read_file(file)
+    lib = CDLL(f"{cfg['darknet']['path']}\\darknet.dll", RTLD_GLOBAL)
 else:
     print("Unsupported OS")
     exit
